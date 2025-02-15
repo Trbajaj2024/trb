@@ -16,4 +16,4 @@ A comprehensive school management system built with Django that handles student 
 
 ## Installation
 
-1. Clone the repository
+1. Clone the repositorytrb
