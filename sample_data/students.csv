@@ -1,0 +1,4 @@
+username,email,password,first_name,last_name,roll_number,grade,section,parent_name,parent_phone,phone,address
+john_doe,john@example.com,securepass123,John,Doe,R2023001,10,A,James Doe,9876543210,1234567890,123 Main St
+jane_smith,jane@example.com,securepass123,Jane,Smith,R2023002,10,B,Mike Smith,9876543211,1234567891,456 Oak Ave
+sam_wilson,sam@example.com,securepass123,Sam,Wilson,R2023003,11,A,Tom Wilson,9876543212,1234567892,789 Pine Rd 

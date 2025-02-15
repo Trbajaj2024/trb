@@ -1,0 +1,4 @@
+username,email,password,first_name,last_name,employee_id,subject,qualification,phone,address
+prof_brown,brown@example.com,securepass123,Robert,Brown,EMP001,Mathematics,Ph.D. in Mathematics,9876543213,321 Elm St
+prof_davis,davis@example.com,securepass123,Sarah,Davis,EMP002,Physics,M.Sc. in Physics,9876543214,654 Maple Ave
+prof_miller,miller@example.com,securepass123,James,Miller,EMP003,Chemistry,Ph.D. in Chemistry,9876543215,987 Birch Rd 
