@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Student Portal - {{ student.user.get_full_name }}{% endblock %}
+
+{% block content %}
+<div class="student-portal">
+    <!-- Student Info Header -->
+    <div class="portal-header">
+        <div class="container">
+            <div class="student-info">
+                <h1>Welcome, {{ student.user.first_name }}!</h1>
+                <div class="student-details">
+                    <p><strong>Student ID:</strong> {{ student.student_id }}</p>
+                    <p><strong>Grade:</strong> {{ student.grade }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="portal-grid">
+            <!-- Main Content -->
+            <div class="portal-main">
+                <!-- Current Courses -->
+                <section class="portal-section">
+                    <h2>My Courses</h2>
+                    <div class="courses-grid">
+                        {% for course in current_courses %}
+                        <div class="course-card">
+                            <h3>{{ course.name }}</h3>
+                            <p class="course-code">{{ course.code }}</p>
+                            <p class="course-teacher">{{ course.teacher.get_full_name }}</p>
+                            <div class="course-actions">
+                                <a href="{% url 'course_detail' course.id %}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p>No courses enrolled.</p>
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <!-- Upcoming Assignments -->
+                <section class="portal-section">
+                    <h2>Upcoming Assignments</h2>
+                    <div class="assignments-list">
+                        {% for assignment in upcoming_assignments %}
+                        <div class="assignment-card">
+                            <div class="assignment-header">
+                                <h3>{{ assignment.assignment.title }}</h3>
+                                <span class="due-date">Due: {{ assignment.assignment.due_date|date:"M d, Y" }}</span>
+                            </div>
+                            <p class="course-info">{{ assignment.assignment.course.name }}</p>
+                            <div class="assignment-actions">
+                                <a href="{% url 'submit_assignment' assignment.assignment.id %}" class="btn btn-primary">Submit</a>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p>No upcoming assignments.</p>
+                        {% endfor %}
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="portal-sidebar">
+                <!-- Recent Grades -->
+                <section class="portal-section">
+                    <h2>Recent Grades</h2>
+                    <div class="grades-list">
+                        {% for grade in recent_grades %}
+                        <div class="grade-item">
+                            <div class="grade-info">
+                                <h4>{{ grade.assignment.title }}</h4>
+                                <p>{{ grade.assignment.course.name }}</p>
+                            </div>
+                            <div class="grade-value">
+                                {{ grade.grade }}/{{ grade.assignment.points_possible }}
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p>No recent grades.</p>
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <!-- Recent Attendance -->
+                <section class="portal-section">
+                    <h2>Recent Attendance</h2>
+                    <div class="attendance-list">
+                        {% for record in recent_attendance %}
+                        <div class="attendance-item">
+                            <span class="date">{{ record.date|date:"M d" }}</span>
+                            <span class="status status-{{ record.status }}">{{ record.get_status_display }}</span>
+                        </div>
+                        {% empty %}
+                        <p>No attendance records.</p>
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'attendance_record' %}" class="btn btn-secondary">View Full Record</a>
+                </section>
+
+                <!-- Quick Links -->
+                <section class="portal-section">
+                    <h2>Quick Links</h2>
+                    <div class="quick-links">
+                        <a href="{% url 'study_resources' %}" class="quick-link">
+                            <i class="fas fa-book"></i>
+                            Study Resources
+                        </a>
+                        <a href="{% url 'library' %}" class="quick-link">
+                            <i class="fas fa-book-reader"></i>
+                            Library Catalog
+                        </a>
+                        <a href="{% url 'academic_calendar' %}" class="quick-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            Academic Calendar
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Event Calendar - {{ school_info.name }}{% endblock %}
+
+{% block extra_css %}
+<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.11.3/main.min.css' rel='stylesheet' />
+<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.11.3/main.min.css' rel='stylesheet' />
+<style>
+    .fc-event {
+        cursor: pointer;
+    }
+    .event-type-academic { background-color: #007bff; }
+    .event-type-sports { background-color: #28a745; }
+    .event-type-cultural { background-color: #dc3545; }
+    .event-type-ptm { background-color: #ffc107; }
+    .event-type-other { background-color: #6c757d; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="calendar-page">
+    <div class="container">
+        <h1>School Events Calendar</h1>
+        <div class="calendar-legend">
+            <div class="legend-item">
+                <span class="legend-color event-type-academic"></span>
+                <span>Academic</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color event-type-sports"></span>
+                <span>Sports</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color event-type-cultural"></span>
+                <span>Cultural</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color event-type-ptm"></span>
+                <span>Parent-Teacher Meeting</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color event-type-other"></span>
+                <span>Other</span>
+            </div>
+        </div>
+        <div id="calendar"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.11.3/main.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.11.3/main.min.js'></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,dayGridWeek'
+        },
+        events: '/events/api/events/',
+        eventTimeFormat: {
+            hour: 'numeric',
+            minute: '2-digit',
+            meridiem: 'short'
+        }
+    });
+    calendar.render();
+});
+</script>
+{% endblock %} 

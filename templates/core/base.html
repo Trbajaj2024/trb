@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ school_info.name }}{% endblock %}</title>
+    
+    {% load static %}
+    <!-- Preload critical assets -->
+    <link rel="preload" href="{% static 'fonts/OpenSans-Regular.woff2' %}" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+    
+    <!-- Meta tags -->
+    <meta name="description" content="{% block meta_description %}{{ school_info.meta_description }}{% endblock %}">
+    {% block extra_meta %}{% endblock %}
+</head>
+<body>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header -->
+    {% include 'core/includes/header.html' %}
+    
+    <!-- Main content -->
+    <main id="main-content" tabindex="-1">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    {% include 'core/includes/footer.html' %}
+    
+    <!-- Scripts -->
+    <script src="{% static 'js/main.js' %}" defer></script>
+    {% block extra_js %}{% endblock %}
+    
+    <!-- Analytics -->
+    {% if not debug %}
+    {% include 'core/includes/analytics.html' %}
+    {% endif %}
+</body>
+</html> 

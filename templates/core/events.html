@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Events - {{ school_info.name }}{% endblock %}
+
+{% block content %}
+<div class="events-page">
+    <section class="upcoming-events">
+        <div class="container">
+            <h1>Upcoming Events</h1>
+            <div class="events-grid">
+                {% for event in upcoming_events %}
+                <div class="event-card">
+                    {% if event.image %}
+                        <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                    {% endif %}
+                    <div class="event-details">
+                        <h3>{{ event.title }}</h3>
+                        <p class="date">{{ event.date|date:"F j, Y - g:i A" }}</p>
+                        <p class="location">{{ event.location }}</p>
+                        <p class="description">{{ event.description }}</p>
+                        {% if event.registration_required %}
+                            <a href="{% url 'event_registration' event.id %}" class="btn btn-primary">Register</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <p>No upcoming events scheduled.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="past-events">
+        <div class="container">
+            <h2>Past Events</h2>
+            <div class="events-grid">
+                {% for event in past_events %}
+                <div class="event-card past">
+                    {% if event.image %}
+                        <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                    {% endif %}
+                    <div class="event-details">
+                        <h3>{{ event.title }}</h3>
+                        <p class="date">{{ event.date|date:"F j, Y" }}</p>
+                        <p class="description">{{ event.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %} 

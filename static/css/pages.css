@@ -1,0 +1,19 @@
+/* Home Page */
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('../images/hero-bg.jpg') center/cover;
+    color: white;
+    padding: 6rem 2rem;
+    text-align: center;
+}
+
+/* Student Portal */
+.student-portal {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* Contact Page */
+.contact-page {
+    background-color: #f8f9fa;
+} 

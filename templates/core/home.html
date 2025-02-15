@@ -1,0 +1,98 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Welcome to {{ school_info.name }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content animate-fade-in">
+            <h1>{{ school_info.name }}</h1>
+            <p class="lead">{{ school_info.tagline }}</p>
+            <div class="hero-buttons">
+                <a href="{% url 'core:about' %}" class="btn btn-primary hover-lift">Learn More</a>
+                <a href="{% url 'core:contact' %}" class="btn btn-secondary hover-lift">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Announcements Carousel -->
+<section class="announcements">
+    <div class="container">
+        <h2>Latest News</h2>
+        <div class="carousel" data-carousel>
+            {% for announcement in announcements %}
+            <div class="carousel-slide {% if forloop.first %}active{% endif %}">
+                {% if announcement.image %}
+                <img src="{{ announcement.image.url }}" alt="" class="carousel-image">
+                {% endif %}
+                <div class="carousel-content">
+                    <h3>{{ announcement.title }}</h3>
+                    <p>{{ announcement.content|truncatewords:30 }}</p>
+                    <a href="{% url 'core:news_detail' announcement.slug %}" class="btn btn-outline">Read More</a>
+                </div>
+            </div>
+            {% endfor %}
+            <button class="carousel-btn prev" data-carousel-prev aria-label="Previous slide">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next" data-carousel-next aria-label="Next slide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Links -->
+<section class="quick-links">
+    <div class="container">
+        <div class="quick-links-grid">
+            <a href="{% url 'core:academics' %}" class="quick-link-card hover-lift">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Academics</h3>
+                <p>Explore our academic programs</p>
+            </a>
+            <a href="{% url 'core:event_list' %}" class="quick-link-card hover-lift">
+                <i class="fas fa-calendar"></i>
+                <h3>Events</h3>
+                <p>See what's happening at school</p>
+            </a>
+            <a href="{% url 'accounts:student_portal' %}" class="quick-link-card hover-lift">
+                <i class="fas fa-user-graduate"></i>
+                <h3>Student Portal</h3>
+                <p>Access your student account</p>
+            </a>
+            <a href="{% url 'core:parents_dashboard' %}" class="quick-link-card hover-lift">
+                <i class="fas fa-users"></i>
+                <h3>Parent Portal</h3>
+                <p>Stay connected with your child's education</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Signup -->
+<section class="newsletter-section">
+    <div class="container">
+        <div class="newsletter-content">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter for the latest news and updates.</p>
+            <form method="post" action="{% url 'core:newsletter_signup' %}" class="newsletter-form" data-ajax-form>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="email" class="sr-only">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                </div>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/carousel.js' %}" defer></script>
+<script src="{% static 'js/forms.js' %}" defer></script>
+{% endblock %} 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official website of [School Name] - [Brief description]">
+    <title>{% block title %}School Website{% endblock %}</title>
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="[font-url]" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Stylesheets -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- ARIA landmarks and roles -->
+    <script>
+        // Add role="navigation" to nav elements
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('nav').forEach(nav => {
+                nav.setAttribute('role', 'navigation');
+                nav.setAttribute('aria-label', 'Main navigation');
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    {% include 'includes/navbar.html' %}
+    
+    <main id="main-content" tabindex="-1">
+        {% block content %}{% endblock %}
+    </main>
+    
+    {% include 'includes/footer.html' %}
+    
+    <!-- Accessibility enhancements -->
+    <script src="{% static 'js/accessibility.js' %}"></script>
+</body>
+</html> 

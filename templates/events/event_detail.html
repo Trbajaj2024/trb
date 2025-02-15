@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ event.title }} - {{ school_info.name }}{% endblock %}
+
+{% block content %}
+<div class="event-detail-page">
+    <div class="container">
+        <div class="event-header">
+            {% if event.image %}
+                <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-image">
+            {% endif %}
+            <div class="event-info">
+                <h1>{{ event.title }}</h1>
+                <p class="event-type">{{ event.get_event_type_display }}</p>
+                <div class="event-meta">
+                    <p><i class="fas fa-calendar"></i> {{ event.start_datetime|date:"F j, Y - g:i A" }}</p>
+                    <p><i class="fas fa-map-marker-alt"></i> {{ event.location }}</p>
+                    {% if event.registration_required %}
+                        <p><i class="fas fa-users"></i> 
+                            {{ event.get_registered_count }} 
+                            {% if event.max_participants %}
+                                / {{ event.max_participants }}
+                            {% endif %}
+                            registered
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="event-content">
+            <div class="event-description">
+                <h2>About This Event</h2>
+                {{ event.description|linebreaks }}
+            </div>
+
+            {% if event.registration_required %}
+                <div class="registration-section">
+                    {% if user.is_authenticated %}
+                        {% if user_registration %}
+                            <div class="registration-status">
+                                <h3>Your Registration</h3>
+                                <p>Status: {{ user_registration.get_status_display }}</p>
+                                <p>Registered on: {{ user_registration.registration_date|date:"F j, Y" }}</p>
+                                {% if user_registration.num_guests %}
+                                    <p>Number of guests: {{ user_registration.num_guests }}</p>
+                                {% endif %}
+                                {% if user_registration.status != 'cancelled' %}
+                                    <form method="post" action="{% url 'cancel_registration' event.pk %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger">Cancel Registration</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        {% elif event.is_registration_open %}
+                            <div class="registration-form">
+                                <h3>Register for this Event</h3>
+                                <form method="post" action="{% url 'event_register' event.pk %}">
+                                    {% csrf_token %}
+                                    {{ registration_form.as_p }}
+                                    <button type="submit" class="btn btn-primary">Register</button>
+                                </form>
+                            </div>
+                        {% else %}
+                            <p class="registration-closed">Registration is closed for this event.</p>
+                        {% endif %}
+                    {% else %}
+                        <p>Please <a href="{% url 'login' %}?next={{ request.path }}">log in</a> to register for this event.</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

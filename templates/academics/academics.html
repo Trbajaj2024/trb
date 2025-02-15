@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Academics - {{ school_info.name }}{% endblock %}
+
+{% block content %}
+<div class="academics-page">
+    <!-- Academic Programs Section -->
+    <section class="programs-section">
+        <div class="container">
+            <h1>Academic Programs</h1>
+            {% for program_type, programs in programs_by_type.items %}
+            <div class="program-category">
+                <h2>{{ program_type }}</h2>
+                <div class="programs-grid">
+                    {% for program in programs %}
+                    <div class="program-card">
+                        {% if program.image %}
+                            <img src="{{ program.image.url }}" alt="{{ program.name }}">
+                        {% endif %}
+                        <div class="program-content">
+                            <h3>{{ program.name }}</h3>
+                            <p>{{ program.description|truncatewords:30 }}</p>
+                            <div class="program-info">
+                                <p><strong>Department:</strong> {{ program.department.name }}</p>
+                            </div>
+                            <a href="{% url 'program_detail' program.pk %}" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Departments Section -->
+    <section class="departments-section">
+        <div class="container">
+            <h2>Academic Departments</h2>
+            <div class="departments-grid">
+                {% for department in departments %}
+                <div class="department-card">
+                    <h3>{{ department.name }}</h3>
+                    <p>{{ department.description|truncatewords:50 }}</p>
+                    {% if department.head %}
+                        <p class="department-head">
+                            Head: {{ department.head.name }}
+                        </p>
+                    {% endif %}
+                    <a href="{% url 'department_detail' department.pk %}" class="btn btn-secondary">View Courses</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Academic Calendar Section -->
+    <section class="calendar-section">
+        <div class="container">
+            <h2>Upcoming Academic Events</h2>
+            <div class="calendar-preview">
+                {% for event in upcoming_events %}
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="date">{{ event.start_date|date:"M d" }}</span>
+                        {% if event.end_date != event.start_date %}
+                            - {{ event.end_date|date:"M d" }}
+                        {% endif %}
+                    </div>
+                    <div class="event-details">
+                        <h4>{{ event.title }}</h4>
+                        <p class="event-type">{{ event.get_event_type_display }}</p>
+                        {% if event.grade_levels %}
+                            <p class="grades">Grades: {{ event.grade_levels }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="text-center">
+                <a href="{% url 'academic_calendar' %}" class="btn btn-primary">View Full Calendar</a>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %} 

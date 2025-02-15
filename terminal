@@ -1,0 +1,6 @@
+django-admin startproject school_website
+cd school_website
+python manage.py startapp core
+python manage.py startapp accounts
+python manage.py startapp academics
+python manage.py startapp events 

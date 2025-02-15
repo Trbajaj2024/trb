@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Parents Dashboard - {{ school_info.name }}{% endblock %}
+
+{% block content %}
+<div class="parents-dashboard">
+    <div class="dashboard-header">
+        <div class="container">
+            <h1>Parents Dashboard</h1>
+            {% if children %}
+                <div class="children-list">
+                    {% for child in children %}
+                    <div class="child-card">
+                        <h3>{{ child.user.get_full_name }}</h3>
+                        <p>Grade: {{ child.grade }}</p>
+                        <p>Student ID: {{ child.student_id }}</p>
+                        <a href="{% url 'student_details' child.id %}" class="btn btn-primary">View Details</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No children registered.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="dashboard-grid">
+            <!-- Upcoming Events -->
+            <section class="dashboard-section">
+                <h2>Upcoming Events</h2>
+                <div class="events-list">
+                    {% for event in upcoming_events %}
+                    <div class="event-card">
+                        <div class="event-header">
+                            <h3>{{ event.title }}</h3>
+                            <span class="date">{{ event.date|date:"M d, Y" }}</span>
+                        </div>
+                        <p>{{ event.description|truncatewords:30 }}</p>
+                        <a href="{% url 'event_detail' event.id %}" class="btn btn-secondary">Learn More</a>
+                    </div>
+                    {% empty %}
+                    <p>No upcoming events.</p>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- Volunteer Opportunities -->
+            <section class="dashboard-section">
+                <h2>Volunteer Opportunities</h2>
+                <div class="volunteer-list">
+                    {% for opportunity in volunteer_opportunities %}
+                    <div class="volunteer-card">
+                        <h3>{{ opportunity.title }}</h3>
+                        <p class="date">{{ opportunity.date|date:"M d, Y" }}</p>
+                        <p>{{ opportunity.description|truncatewords:20 }}</p>
+                        <p class="slots">{{ opportunity.slots_available }} slots available</p>
+                        <a href="{% url 'register_volunteer' opportunity.id %}" class="btn btn-primary">Register</a>
+                    </div>
+                    {% empty %}
+                    <p>No current volunteer opportunities.</p>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="dashboard-section">
+                <h2>Quick Actions</h2>
+                <div class="quick-actions">
+                    <a href="{% url 'payment_portal' %}" class="action-card">
+                        <i class="fas fa-credit-card"></i>
+                        <h3>Make a Payment</h3>
+                        <p>Pay school fees, event tickets, or make donations</p>
+                    </a>
+                    <a href="{% url 'school_policies' %}" class="action-card">
+                        <i class="fas fa-book"></i>
+                        <h3>School Policies</h3>
+                        <p>View current school policies and guidelines</p>
+                    </a>
+                    <a href="{% url 'contact_teachers' %}" class="action-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Contact Teachers</h3>
+                        <p>Send messages to your child's teachers</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Recent Policies -->
+            <section class="dashboard-section">
+                <h2>Recent Policy Updates</h2>
+                <div class="policies-list">
+                    {% for policy in recent_policies %}
+                    <div class="policy-card">
+                        <h3>{{ policy.title }}</h3>
+                        <p class="category">{{ policy.get_category_display }}</p>
+                        <p class="update-date">Updated: {{ policy.last_updated|date:"M d, Y" }}</p>
+                        <a href="{% url 'policy_detail' policy.id %}" class="read-more">Read More</a>
+                    </div>
+                    {% empty %}
+                    <p>No recent policy updates.</p>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %} 

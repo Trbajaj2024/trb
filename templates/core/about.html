@@ -1,0 +1,185 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section bg-primary text-white py-5 mb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Welcome to TRBSS</h1>
+                <p class="lead mb-4">Empowering minds, shaping futures, and building tomorrow's leaders since 1995.</p>
+                <a href="{% url 'contact' %}" class="btn btn-light btn-lg">Get in Touch</a>
+            </div>
+            <div class="col-lg-6">
+                <img src="{% static 'images/school-building.jpg' %}" alt="School Building" class="img-fluid rounded-3 shadow">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mission & Vision -->
+<div class="container mb-5">
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="display-1 text-primary mb-3">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h2 class="h3 mb-3">Our Mission</h2>
+                    <p class="text-muted">To provide excellence in education through innovative teaching methods, fostering creativity, critical thinking, and character development in a nurturing environment.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="display-1 text-primary mb-3">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h2 class="h3 mb-3">Our Vision</h2>
+                    <p class="text-muted">To be a leading educational institution that empowers students to become global citizens, innovative thinkers, and compassionate leaders of tomorrow.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Why Choose Us -->
+<div class="bg-light py-5 mb-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Why Choose TRBSS?</h2>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Excellence in Education</h3>
+                    <p class="text-muted">Consistently achieving outstanding academic results</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Expert Faculty</h3>
+                    <p class="text-muted">Highly qualified and dedicated teaching staff</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Modern Facilities</h3>
+                    <p class="text-muted">State-of-the-art labs and learning spaces</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Holistic Development</h3>
+                    <p class="text-muted">Focus on academic and personal growth</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Our History -->
+<div class="container mb-5">
+    <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <img src="{% static 'images/school-history.jpg' %}" alt="School History" class="img-fluid rounded-3 shadow">
+        </div>
+        <div class="col-lg-6">
+            <h2 class="mb-4">Our Journey Since 1995</h2>
+            <div class="timeline">
+                <div class="mb-4">
+                    <h4 class="text-primary">1995</h4>
+                    <p>Founded with a vision to provide quality education</p>
+                </div>
+                <div class="mb-4">
+                    <h4 class="text-primary">2005</h4>
+                    <p>Expanded facilities and introduced new programs</p>
+                </div>
+                <div class="mb-4">
+                    <h4 class="text-primary">2015</h4>
+                    <p>Achieved excellence in academic and extra-curricular activities</p>
+                </div>
+                <div>
+                    <h4 class="text-primary">2023</h4>
+                    <p>Continuing to innovate and excel in modern education</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics -->
+<div class="bg-primary text-white py-5">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="display-4 fw-bold mb-2">1000+</div>
+                <p>Students</p>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="display-4 fw-bold mb-2">50+</div>
+                <p>Expert Teachers</p>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="display-4 fw-bold mb-2">95%</div>
+                <p>Success Rate</p>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="display-4 fw-bold mb-2">25+</div>
+                <p>Years of Excellence</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="container py-5">
+    <div class="text-center">
+        <h2 class="mb-4">Ready to Join Our School?</h2>
+        <p class="lead mb-4">Take the first step towards excellence in education</p>
+        <a href="{% url 'admissions' %}" class="btn btn-primary btn-lg">Apply Now</a>
+    </div>
+</div>
+
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    }
+    
+    .card {
+        transition: transform 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .timeline {
+        border-left: 3px solid #0d6efd;
+        padding-left: 20px;
+    }
+    
+    .display-1 i, .display-4 i {
+        transition: transform 0.3s ease;
+    }
+    
+    .card:hover .display-1 i {
+        transform: scale(1.1);
+    }
+</style>
+{% endblock %} 
