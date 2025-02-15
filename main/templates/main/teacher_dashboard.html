@@ -1,0 +1,62 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Teacher Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2><i class="fas fa-chalkboard-teacher me-2"></i>Teacher Dashboard</h2>
+            <p class="lead">Welcome, {{ request.user.username }}!</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-user me-2"></i>Profile Information</h5>
+                    <ul class="list-unstyled">
+                        <li><strong>Employee ID:</strong> {{ request.user.teacher.employee_id }}</li>
+                        <li><strong>Subject:</strong> {{ request.user.teacher.subject }}</li>
+                        <li><strong>Qualification:</strong> {{ request.user.teacher.qualification }}</li>
+                        <li><strong>Email:</strong> {{ request.user.email }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-clock me-2"></i>Upcoming Classes</h5>
+                    <ul class="list-group">
+                        {% for class in upcoming_classes %}
+                        <li class="list-group-item">
+                            <h6>{{ class.subject }} - {{ class.grade }}</h6>
+                            <small class="text-muted">{{ class.time }}</small>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-bullhorn me-2"></i>Announcements</h5>
+                    <ul class="list-group">
+                        {% for announcement in announcements %}
+                        <li class="list-group-item">
+                            <h6>{{ announcement.title }}</h6>
+                            <small class="text-muted">{{ announcement.date }}</small>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

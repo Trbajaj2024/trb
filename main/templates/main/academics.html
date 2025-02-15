@@ -1,0 +1,217 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Academics - TRBSS{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="bg-primary text-white py-5 mb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4 animate-up">Academic Excellence</h1>
+                <p class="lead mb-4 animate-up-delay-1">Discover our comprehensive academic programs designed to nurture talent and foster growth.</p>
+            </div>
+            <div class="col-lg-2">
+                <div class="rounded-3 overflow-hidden shadow-lg animate-right">
+                    <img src="{% static 'images/academics-hero.jpg' %}" alt="Academics" class="img-fluid w-100">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Academic Levels -->
+<section class="container mb-5">
+    <h2 class="text-center mb-5">Academic Levels</h2>
+    <div class="row g-4">
+        {% for level in academic_levels %}
+        <div class="col-lg-4">
+            <div class="card h-100 border-0 shadow-sm hover-card animate-up">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 text-primary mb-4">
+                        <i class="{{ level.icon }}"></i>
+                    </div>
+                    <h3 class="h4 mb-3">{{ level.name }}</h3>
+                    <p class="text-muted mb-4">{{ level.description }}</p>
+                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#levelModal{{ level.id }}">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level Modal -->
+        <div class="modal fade" id="levelModal{{ level.id }}" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">{{ level.name }}</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="curriculum-details">
+                            {% for curriculum in level.curriculum_set.all %}
+                            <h4 class="h5 mb-3">{{ curriculum.title }}</h4>
+                            <p>{{ curriculum.description }}</p>
+                            <h5 class="h6 mb-2">Subjects Offered:</h5>
+                            <ul class="list-unstyled row">
+                                {% for subject in curriculum.subjects.splitlines %}
+                                <li class="col-md-6 mb-2">
+                                    <i class="fas fa-check-circle text-primary me-2"></i>{{ subject }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Departments -->
+<section class="bg-light py-5 mb-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Departments</h2>
+        <div class="row g-4">
+            {% for dept in departments %}
+            <div class="col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-card animate-up">
+                    <img src="{% if dept.image %}{{ dept.image.url }}{% else %}{% static 'images/placeholder.jpg' %}{% endif %}" 
+                         class="card-img-top" alt="{{ dept.name }}" 
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body p-4">
+                        <h3 class="h5 mb-3">{{ dept.name }}</h3>
+                        <p class="text-muted mb-4">{{ dept.description|truncatewords:30 }}</p>
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 fw-bold">{{ dept.head_name }}</p>
+                                <small class="text-muted">{{ dept.head_qualification }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="container mb-5">
+    <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+            <div class="text-center animate-up">
+                <div class="display-4 text-primary mb-3">
+                    <i class="fas fa-book-reader"></i>
+                </div>
+                <h4 class="h5 mb-3">Modern Curriculum</h4>
+                <p class="text-muted">Updated curriculum aligned with global standards</p>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="text-center animate-up">
+                <div class="display-4 text-primary mb-3">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <h4 class="h5 mb-3">Expert Faculty</h4>
+                <p class="text-muted">Highly qualified and experienced teachers</p>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="text-center animate-up">
+                <div class="display-4 text-primary mb-3">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <h4 class="h5 mb-3">Smart Classrooms</h4>
+                <p class="text-muted">Technology-enabled learning environments</p>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="text-center animate-up">
+                <div class="display-4 text-primary mb-3">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h4 class="h5 mb-3">Regular Assessment</h4>
+                <p class="text-muted">Continuous evaluation and feedback</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h2 class="mb-4">Ready to Join Our Academic Community?</h2>
+        <p class="lead mb-4">Take the first step towards academic excellence</p>
+        <a href="{% url 'admissions' %}" class="btn btn-light btn-lg px-5">Apply Now</a>
+    </div>
+</section>
+
+<style>
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+}
+
+.animate-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-up-delay-1 {
+    animation-delay: 0.2s;
+}
+
+.animate-right {
+    opacity: 0;
+    transform: translateX(20px);
+    animation: fadeInRight 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-up, .animate-right').forEach(el => {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+    });
+});
+</script>
+{% endblock %} 

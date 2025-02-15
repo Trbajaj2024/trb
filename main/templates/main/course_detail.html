@@ -1,0 +1,182 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}{{ course.title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-5">
+    <div class="row">
+        <!-- Course Header -->
+        <div class="col-12 mb-4">
+            <div class="card bg-dark text-white">
+                {% if course.image %}
+                <img src="{{ course.image.url }}" class="card-img" alt="{{ course.title }}" style="height: 300px; object-fit: cover; opacity: 0.6;">
+                {% endif %}
+                <div class="card-img-overlay d-flex flex-column justify-content-center">
+                    <h1 class="card-title display-4">{{ course.title }}</h1>
+                    <p class="card-text lead">{{ course.description }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar for Course Content -->
+        <div class="col-lg-3 col-md-4 mb-4">
+            <div class="sticky-top" style="top: 20px;">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="h5 mb-0">Course Content</h3>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="accordion" id="courseContent">
+                            {% for subject in subjects %}
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bold" type="button" 
+                                            data-bs-toggle="collapse" 
+                                            data-bs-target="#subject{{ subject.id }}">
+                                        {{ subject.title }}
+                                    </button>
+                                </h2>
+                                <div id="subject{{ subject.id }}" class="accordion-collapse collapse" 
+                                     data-bs-parent="#courseContent">
+                                    <div class="accordion-body p-0">
+                                        {% for chapter in subject.cached_chapters %}
+                                        <div class="list-group list-group-flush">
+                                            <div class="list-group-item">
+                                                <h6 class="mb-2">{{ chapter.title }}</h6>
+                                                <div class="list-group">
+                                                    {% for lecture in chapter.cached_lectures %}
+                                                    <a href="#" class="list-group-item list-group-item-action lecture-link" 
+                                                       data-video-id="{{ lecture.video_id }}">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <i class="fas fa-play-circle me-2 text-primary"></i>
+                                                                {{ lecture.title }}
+                                                            </div>
+                                                            {% if lecture.duration %}
+                                                            <span class="badge bg-light text-dark">{{ lecture.duration }}</span>
+                                                            {% endif %}
+                                                        </div>
+                                                    </a>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area with Video Player -->
+        <div class="col-lg-9 col-md-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h3 class="h5 mb-0" id="currentVideoTitle">Current Lecture</h3>
+                </div>
+                <div class="card-body p-0">
+                    <div id="videoPlayer" class="video-container">
+                        <iframe id="videoFrame" 
+                                width="100%" 
+                                height="100%" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay" 
+                                src=""
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div id="videoError" class="alert alert-danger m-3" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="errorMessage"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .lecture-link {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .lecture-link:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+
+    .badge {
+        font-weight: normal;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const lectureLinks = document.querySelectorAll('.lecture-link');
+    const videoFrame = document.getElementById('videoFrame');
+    const videoError = document.getElementById('videoError');
+    const errorMessage = document.getElementById('errorMessage');
+    const currentVideoTitle = document.getElementById('currentVideoTitle');
+
+    lectureLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const videoId = this.dataset.videoId;
+            const title = this.querySelector('div div').textContent.trim();
+
+            try {
+                // Minimal video player configuration
+                const videoUrl = new URL('https://www.youtube.com/embed/' + videoId);
+                videoUrl.searchParams.set('autoplay', '1');          // Enable autoplay
+                videoUrl.searchParams.set('rel', '0');              // Hide related videos
+                videoUrl.searchParams.set('controls', '1');         // Show only essential controls
+                videoUrl.searchParams.set('modestbranding', '1');   // Minimal branding
+                videoUrl.searchParams.set('showinfo', '0');         // Hide title bar
+                videoUrl.searchParams.set('fs', '0');               // Disable fullscreen
+                videoUrl.searchParams.set('iv_load_policy', '3');   // Hide annotations
+                videoUrl.searchParams.set('origin', window.location.origin);
+
+                videoFrame.src = videoUrl.toString();
+                currentVideoTitle.textContent = title;
+                videoError.style.display = 'none';
+                
+                // Scroll to video on mobile
+                if (window.innerWidth < 768) {
+                    videoFrame.scrollIntoView({ behavior: 'smooth' });
+                }
+            } catch (error) {
+                errorMessage.textContent = 'Error loading video. Please try again.';
+                videoError.style.display = 'block';
+                console.error('Video loading error:', error);
+            }
+        });
+    });
+
+    // Load first video automatically
+    const firstLecture = document.querySelector('.lecture-link');
+    if (firstLecture) {
+        firstLecture.click();
+    }
+});
+</script>
+{% endblock %} 

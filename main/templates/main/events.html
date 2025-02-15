@@ -1,0 +1,81 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Events{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Upcoming Events</h2>
+        
+        <div class="list-group mb-4">
+            {% for event in events %}
+            <div class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ event.title }}</h5>
+                    <small>{{ event.date }}</small>
+                </div>
+                <p class="mb-1">{{ event.description }}</p>
+                <small>Location: {{ event.location }}</small>
+            </div>
+            {% empty %}
+            <div class="list-group-item">
+                <h5>Annual Sports Day</h5>
+                <p>Annual sports competition featuring various athletic events.</p>
+                <small>Date: March 15, 2024</small>
+            </div>
+            <div class="list-group-item">
+                <h5>Science Exhibition</h5>
+                <p>Students showcase their science projects and innovations.</p>
+                <small>Date: April 10, 2024</small>
+            </div>
+            <div class="list-group-item">
+                <h5>Cultural Festival</h5>
+                <p>Annual cultural celebration with performances and exhibitions.</p>
+                <small>Date: May 5, 2024</small>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h3>Calendar</h3>
+        <div class="card">
+            <div class="card-body">
+                <!-- Add calendar widget here -->
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add FullCalendar.js for calendar functionality -->
+<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.4.0/main.min.css' rel='stylesheet' />
+<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.4.0/main.min.css' rel='stylesheet' />
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.4.0/main.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.4.0/main.min.js'></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: [ 'dayGrid' ],
+        initialView: 'dayGridMonth',
+        events: [
+            {
+                title: 'Sports Day',
+                start: '2024-03-15'
+            },
+            {
+                title: 'Science Exhibition',
+                start: '2024-04-10'
+            },
+            {
+                title: 'Cultural Festival',
+                start: '2024-05-05'
+            }
+        ]
+    });
+    calendar.render();
+});
+</script>
+{% endblock %} 

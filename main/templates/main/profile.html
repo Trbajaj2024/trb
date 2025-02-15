@@ -1,0 +1,177 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Profile - {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-user-circle text-primary" style="font-size: 5rem;"></i>
+                    </div>
+                    <h4 class="mb-0">{{ user.get_full_name|default:user.username }}</h4>
+                    <p class="text-muted">
+                        {% if user.is_student %}Student
+                        {% elif user.is_teacher %}Teacher
+                        {% endif %}
+                    </p>
+                    <hr>
+                    <div class="text-start">
+                        <p><i class="fas fa-envelope me-2"></i> {{ user.email }}</p>
+                        {% if user.phone %}
+                        <p><i class="fas fa-phone me-2"></i> {{ user.phone }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Profile Details</h5>
+                    
+                    {% if user.is_student %}
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <p class="mb-0"><strong>Roll Number</strong></p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ student.roll_number }}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <p class="mb-0"><strong>Grade</strong></p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ student.grade }}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <p class="mb-0"><strong>Section</strong></p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ student.section }}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <p class="mb-0"><strong>Parent's Name</strong></p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ student.parent_name }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0"><strong>Parent's Phone</strong></p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ student.parent_phone }}</p>
+                        </div>
+                    </div>
+                    {% elif user.is_teacher %}
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <p class="mb-0"><strong>Employee ID</strong></p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ teacher.employee_id }}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <p class="mb-0"><strong>Subject</strong></p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ teacher.subject }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0"><strong>Qualification</strong></p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ teacher.qualification }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Account Settings</h5>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                            <i class="fas fa-key me-2"></i>Change Password
+                        </button>
+                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                            <i class="fas fa-edit me-2"></i>Edit Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Password Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'change_password' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" name="current_password" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New Password</label>
+                        <input type="password" name="new_password1" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Confirm New Password</label>
+                        <input type="password" name="new_password2" class="form-control" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Change Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.btn-outline-primary {
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.modal-content {
+    border-radius: 15px;
+    border: none;
+}
+
+.modal-header {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+</style>
+{% endblock %} 

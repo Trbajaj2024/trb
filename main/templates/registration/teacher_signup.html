@@ -1,0 +1,63 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Teacher Registration{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">
+                        <i class="fas fa-chalkboard-teacher me-2"></i>Teacher Registration
+                    </h2>
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" name="username" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="employee_id" class="form-label">Employee ID</label>
+                                <input type="text" name="employee_id" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" name="subject" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="qualification" class="form-label">Qualification</label>
+                            <input type="text" name="qualification" class="form-control" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password1" class="form-label">Password</label>
+                                <input type="password" name="password1" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="password2" class="form-label">Confirm Password</label>
+                                <input type="password" name="password2" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </form>
+                    <hr>
+                    <div class="text-center">
+                        <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

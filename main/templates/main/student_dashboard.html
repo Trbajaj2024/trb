@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2><i class="fas fa-tachometer-alt me-2"></i>Student Dashboard</h2>
+            <p class="lead">Welcome, {{ request.user.username }}!</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-user me-2"></i>Profile Information</h5>
+                    <ul class="list-unstyled">
+                        <li><strong>Roll Number:</strong> {{ request.user.student.roll_number }}</li>
+                        <li><strong>Grade:</strong> {{ request.user.student.grade }}</li>
+                        <li><strong>Section:</strong> {{ request.user.student.section }}</li>
+                        <li><strong>Email:</strong> {{ request.user.email }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-calendar-alt me-2"></i>Upcoming Events</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">Math Test - Next Monday</li>
+                        <li class="list-group-item">Science Project Due - Friday</li>
+                        <li class="list-group-item">Sports Day - Next Week</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-bullhorn me-2"></i>Announcements</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">Holiday Notice - October 2nd</li>
+                        <li class="list-group-item">Parent Teacher Meeting - Next Month</li>
+                        <li class="list-group-item">Annual Day Preparations Start</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

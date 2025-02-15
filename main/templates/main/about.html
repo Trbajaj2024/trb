@@ -1,0 +1,321 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}About Us - TRBSS{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Parallax -->
+<div class="hero-section position-relative overflow-hidden">
+    <div class="parallax-bg"></div>
+    <div class="hero-content container text-center text-white py-5">
+        <h1 class="display-3 fw-bold mb-4 animate-up">About TRBSS</h1>
+        <p class="lead mb-4 animate-up-delay-1">Nurturing Minds, Building Futures Since 2023</p>
+        <div class="animate-up-delay-2">
+            <a href="{% url 'contact' %}" class="btn btn-light btn-lg px-4 me-2">Contact Us</a>
+            <a href="{% url 'admissions' %}" class="btn btn-outline-light btn-lg px-4">Apply Now</a>
+        </div>
+    </div>
+</div>
+
+<!-- Welcome Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <img src="{% static 'images/school-building.jpg' %}" alt="School Building" class="img-fluid rounded-3 shadow-lg animate-left">
+            </div>
+            <div class="col-lg-6">
+                <div class="ps-lg-4 animate-right">
+                    <h2 class="display-6 fw-bold mb-4">Welcome to Excellence</h2>
+                    <p class="lead text-muted">At TRBSS, we believe in providing world-class education that nurtures both academic excellence and character development.</p>
+                    <div class="d-flex align-items-center mt-4">
+                        <div class="feature-icon bg-primary text-white rounded-circle p-3 me-3">
+                            <i class="fas fa-graduation-cap fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4 class="h5 mb-1">Academic Excellence</h4>
+                            <p class="text-muted mb-0">Consistently achieving outstanding results</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mt-4">
+                        <div class="feature-icon bg-primary text-white rounded-circle p-3 me-3">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4 class="h5 mb-1">Holistic Development</h4>
+                            <p class="text-muted mb-0">Focus on character and skills development</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission & Vision -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm hover-card animate-up">
+                    <div class="card-body text-center p-5">
+                        <div class="display-1 text-primary mb-4">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h2 class="h3 mb-4">Our Mission</h2>
+                        <p class="text-muted mb-0">To provide excellence in education through innovative teaching methods, fostering creativity, critical thinking, and character development in a nurturing environment.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm hover-card animate-up">
+                    <div class="card-body text-center p-5">
+                        <div class="display-1 text-primary mb-4">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h2 class="h3 mb-4">Our Vision</h2>
+                        <p class="text-muted mb-0">To be a leading educational institution that empowers students to become global citizens, innovative thinkers, and compassionate leaders of tomorrow.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Timeline Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item animate-right">
+                <div class="timeline-content">
+                    <h3 class="h5 mb-2">2022</h3>
+                    <p class="mb-0">Founded with a vision to provide quality education</p>
+                </div>
+            </div>
+            <div class="timeline-item animate-left">
+                <div class="timeline-content">
+                    <h3 class="h5 mb-2">2023</h3>
+                    <p class="mb-0">Expanded facilities and introduced new programs</p>
+                </div>
+            </div>
+            <div class="timeline-item animate-right">
+                <div class="timeline-content">
+                    <h3 class="h5 mb-2">2024</h3>
+                    <p class="mb-0">Achieved excellence in academic and extra-curricular activities</p>
+                </div>
+            </div>
+            <div class="timeline-item animate-left">
+                <div class="timeline-content">
+                    <h3 class="h5 mb-2">2025</h3>
+                    <p class="mb-0">Continuing to innovate and excel in modern education</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h2 class="mb-4">Join Our School Community</h2>
+        <p class="lead mb-4">Take the first step towards excellence in education</p>
+        <a href="{% url 'admissions' %}" class="btn btn-light btn-lg px-5">Apply Now</a>
+    </div>
+</section>
+
+<style>
+/* Hero Section with Parallax */
+.hero-section {
+    height: 500px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static "images/school-building.jpg" %}') center/cover no-repeat fixed;
+    filter: brightness(0.5);
+    z-index: -1;
+}
+
+.hero-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Animations */
+.animate-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-up-delay-1 {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease 0.2s forwards;
+}
+
+.animate-up-delay-2 {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease 0.4s forwards;
+}
+
+.animate-left {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: fadeInLeft 0.6s ease forwards;
+}
+
+.animate-right {
+    opacity: 0;
+    transform: translateX(20px);
+    animation: fadeInRight 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Cards */
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 2px;
+    background: #dee2e6;
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    margin-bottom: 3rem;
+    position: relative;
+    width: 50%;
+    padding: 0 2rem;
+}
+
+.timeline-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+}
+
+.timeline-content {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: var(--bs-primary);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.timeline-item:nth-child(odd)::before {
+    right: -8px;
+}
+
+.timeline-item:nth-child(even)::before {
+    left: -8px;
+}
+
+/* Feature Icons */
+.feature-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 1rem;
+    }
+    
+    .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        text-align: left !important;
+        padding-left: 3rem;
+    }
+    
+    .timeline-item::before {
+        left: 0 !important;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-up, .animate-left, .animate-right, .animate-up-delay-1, .animate-up-delay-2').forEach(el => {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+    });
+});
+</script>
+{% endblock %}

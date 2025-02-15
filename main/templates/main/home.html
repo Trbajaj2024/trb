@@ -1,0 +1,204 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Home - TRBSS{% endblock %}
+
+{% block content %}
+<!-- Carousel Section -->
+<div id="mainCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        {% for carousel in carousels %}
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="{{ forloop.counter0 }}" 
+                {% if forloop.first %}class="active"{% endif %}></button>
+        {% endfor %}
+    </div>
+    <div class="carousel-inner">
+        {% for carousel in carousels %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <img src="{{ carousel.image.url }}" class="d-block w-100" alt="{{ carousel.title }}" 
+                 style="height: 600px; object-fit: cover;">
+            <div class="carousel-caption">
+                <h2 class="display-4 fw-bold text-shadow">{{ carousel.title }}</h2>
+                <p class="lead text-shadow">{{ carousel.subtitle }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<!-- Statistics Section -->
+<div class="container mb-5">
+    <div class="row g-4">
+        {% for stat in stats %}
+        <div class="col-lg-3 col-md-6">
+            <div class="card h-100 border-0 shadow-sm text-center hover-card">
+                <div class="card-body">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="{{ stat.icon }}"></i>
+                    </div>
+                    <h3 class="h5">{{ stat.name }}</h3>
+                    <p class="display-6 text-primary mb-0">{{ stat.value }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Featured Programs -->
+<div class="bg-light py-5 mb-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Featured Programs</h2>
+        <div class="row g-4">
+            {% for program in featured_programs %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="display-4 text-primary mb-3">
+                            <i class="{{ program.icon }}"></i>
+                        </div>
+                        <h3 class="h4 mb-3">{{ program.title }}</h3>
+                        <p class="text-muted">{{ program.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Upcoming Events -->
+<div class="container mb-5">
+    <h2 class="text-center mb-5">Upcoming Events</h2>
+    <div class="row g-4">
+        {% for event in upcoming_events %}
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 border-0 shadow-sm hover-card">
+                <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}" 
+                     style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <div class="mb-2 text-primary">
+                        <i class="fas fa-calendar-alt"></i> {{ event.date|date:"F d, Y" }}
+                    </div>
+                    <h3 class="h5 mb-3">{{ event.title }}</h3>
+                    <p class="text-muted">{{ event.description|truncatewords:20 }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Live Classes -->
+<div class="bg-primary text-white py-5 mb-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Live Classes</h2>
+        <div class="row g-4">
+            {% for class in live_classes %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card bg-white h-100">
+                    <div class="card-body">
+                        <h3 class="h5 text-primary mb-3">{{ class.title }}</h3>
+                        <p class="text-muted mb-3">{{ class.description|truncatewords:15 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="text-muted">
+                                <i class="fas fa-clock"></i> {{ class.date|date:"g:i A" }}
+                            </div>
+                            <a href="{{ class.link }}" target="_blank" class="btn btn-primary">Join Class</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Featured Courses -->
+<div class="container mb-5">
+    <h2 class="text-center mb-5">Featured Courses</h2>
+    <div class="row g-4">
+        {% for course in courses %}
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 border-0 shadow-sm hover-card">
+                {% if course.image %}
+                <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}" 
+                     style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h3 class="h5 mb-3">{{ course.title }}</h3>
+                    <p class="text-muted">{{ course.description|truncatewords:20 }}</p>
+                    <a href="{% url 'course_detail' course.id %}" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Achievements -->
+<div class="bg-light py-5 mb-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Achievements</h2>
+        <div class="row g-4">
+            {% for achievement in achievements %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    {% if achievement.image %}
+                    <img src="{{ achievement.image.url }}" class="card-img-top" alt="{{ achievement.title }}" 
+                         style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="mb-2 text-primary">
+                            <i class="fas fa-trophy"></i> {{ achievement.date|date:"F Y" }}
+                        </div>
+                        <h3 class="h5 mb-3">{{ achievement.title }}</h3>
+                        <p class="text-muted">{{ achievement.description|truncatewords:20 }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="container text-center py-5">
+    <h2 class="mb-4">Ready to Start Your Journey?</h2>
+    <p class="lead mb-4">Join us and be part of our growing community of learners</p>
+    <a href="{% url 'admissions' %}" class="btn btn-primary btn-lg">Apply Now</a>
+</div>
+
+<style>
+    .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .hover-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+    
+    .carousel-item img {
+        filter: brightness(0.7);
+    }
+    
+    .display-4 i {
+        transition: transform 0.3s ease;
+    }
+    
+    .card:hover .display-4 i {
+        transform: scale(1.1);
+    }
+</style>
+{% endblock %} 

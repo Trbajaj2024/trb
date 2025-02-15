@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Live Classes{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4">Upcoming Live Classes</h2>
+    <div class="row">
+        {% for live_class in classes %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ live_class.title }}</h5>
+                    <p class="card-text">{{ live_class.description }}</p>
+                    <p class="card-text"><strong>Date:</strong> {{ live_class.date }}</p>
+                    <p class="card-text"><strong>Platform:</strong> {{ live_class.platform }}</p>
+                    <a href="{{ live_class.link }}" class="btn btn-primary" target="_blank">Join Class</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-md-12">
+            <div class="alert alert-info">No upcoming live classes at the moment.</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

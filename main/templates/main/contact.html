@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Contact Taradevi RameshwarLal Bajaj School{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <h2>Contact Us</h2>
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" class="form-control" id="subject" name="subject" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <h2>School Location</h2>
+        <div class="card">
+            <div class="card-body">
+                <h5>Address:</h5>
+                <p>123 School Street<br>
+                City, State 12345</p>
+                
+                <h5>Phone:</h5>
+                <p>(123) 456-7890</p>
+                
+                <h5>Email:</h5>
+                <p>info@taradevirameshwarlalbajajschoo.com</p>
+
+                <h5>Office Hours:</h5>
+                <p>Monday - Friday: 8:00 AM - 4:00 PM</p>
+            </div>
+        </div>
+        <!-- Add Google Maps iframe here if desired -->
+    </div>
+</div>
+{% endblock %} 

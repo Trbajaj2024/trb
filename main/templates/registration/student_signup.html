@@ -1,0 +1,195 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Student Signup{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <h2 class="h4">Student Registration</h2>
+                        <p class="text-muted">Create your student account</p>
+                    </div>
+
+                    {% if messages %}
+                    <div class="messages-container mb-4">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Username</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input type="text" name="username" class="form-control" required>
+                                    <div class="invalid-feedback">Please choose a username.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" name="email" class="form-control" required>
+                                    <div class="invalid-feedback">Please enter a valid email.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" name="password1" class="form-control" required>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <div class="invalid-feedback">Please enter a password.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Confirm Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" name="password2" class="form-control" required>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <div class="invalid-feedback">Please confirm your password.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Roll Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                                    <input type="text" name="roll_number" class="form-control" required>
+                                    <div class="invalid-feedback">Please enter your roll number.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Grade</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-graduation-cap"></i></span>
+                                    <input type="text" name="grade" class="form-control" required>
+                                    <div class="invalid-feedback">Please enter your grade.</div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="terms" required>
+                                    <label class="form-check-label" for="terms">
+                                        I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a>
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        You must agree before submitting.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary w-100 btn-lg">Register</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <p>Already have an account? <a href="{% url 'login' %}" class="text-primary">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Terms and Conditions Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Terms and Conditions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>By creating an account, you agree to:</p>
+                <ul>
+                    <li>Provide accurate information</li>
+                    <li>Maintain the confidentiality of your account</li>
+                    <li>Follow school policies and guidelines</li>
+                    <li>Use the platform responsibly</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">I Understand</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border-radius: 15px;
+}
+
+.input-group-text {
+    background-color: transparent;
+    border-right: none;
+}
+
+.input-group .form-control {
+    border-left: none;
+}
+
+.input-group .form-control:focus {
+    border-color: #dee2e6;
+    box-shadow: none;
+}
+
+.alert {
+    border-radius: 10px;
+}
+
+.messages-container {
+    max-height: 200px;
+    overflow-y: auto;
+}
+</style>
+
+<script>
+// Form validation
+document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        });
+    });
+});
+
+// Password visibility toggle
+function togglePassword(button) {
+    const input = button.previousElementSibling;
+    const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+    input.setAttribute('type', type);
+    button.querySelector('i').classList.toggle('fa-eye');
+    button.querySelector('i').classList.toggle('fa-eye-slash');
+}
+
+// Auto-dismiss alerts after 5 seconds
+setTimeout(function() {
+    document.querySelectorAll('.alert').forEach(alert => {
+        new bootstrap.Alert(alert).close();
+    });
+}, 5000);
+</script>
+{% endblock %} 

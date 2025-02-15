@@ -1,0 +1,72 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Admissions at Taradevi RameshwarLal Bajaj School{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Admission Form for Taradevi RameshwarLal Bajaj School</h2>
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="studentName" class="form-label">Student's Name</label>
+                <input type="text" class="form-control" id="studentName" name="studentName" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="dob" class="form-label">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" name="dob" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="grade" class="form-label">Applying for Grade</label>
+                <select class="form-control" id="grade" name="grade" required>
+                    <option value="">Select Grade</option>
+                    <option value="1">Grade 1</option>
+                    <option value="2">Grade 2</option>
+                    <option value="3">Grade 3</option>
+                    <!-- Add more options -->
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="parentName" class="form-label">Parent's Name</label>
+                <input type="text" class="form-control" id="parentName" name="parentName" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="phone" name="phone" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Application</button>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <h3>Admission Process</h3>
+        <div class="card">
+            <div class="card-body">
+                <h5>Steps:</h5>
+                <ol>
+                    <li>Fill out the online application</li>
+                    <li>Submit required documents</li>
+                    <li>Entrance test (if applicable)</li>
+                    <li>Interview</li>
+                    <li>Final admission</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,71 @@
+.object-tools {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.object-tools a.btn-primary {
+    background: #417690;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.object-tools a.btn-primary:hover {
+    background: #2d5266;
+}
+
+.object-tools a.btn-primary i {
+    font-size: 14px;
+}
+
+.object-tools a.btn-secondary {
+    background: #6c757d;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.object-tools a.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.object-tools li {
+    margin-right: 10px;
+}
+
+.object-tools li:last-child {
+    margin-right: 0;
+}
+
+.messagelist {
+    padding: 0;
+    margin: 0 0 10px 0;
+    list-style-type: none;
+}
+
+.messagelist li {
+    padding: 10px 15px;
+    margin: 0 0 5px 0;
+    border-radius: 4px;
+}
+
+.messagelist li.success {
+    background: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+}
+
+.messagelist li.error {
+    background: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+} 
